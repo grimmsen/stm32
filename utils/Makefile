@@ -1,5 +1,5 @@
 defines = -DSTM32F10X_MD
-includes = -I../core-common-lib/CMSIS/Include -I../core-common-lib/CMSIS/Device/ST/STM32F10x/Include
+includes = -I../CMSIS/Include -I../CMSIS/Device/ST/STM32F10x/Include
 toolchain = arm-none-eabi-
 cc = $(toolchain)gcc
 debug = -g

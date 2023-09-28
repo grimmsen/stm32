@@ -1,6 +1,6 @@
 objects = blinky.o ../../utils/clock.o ../../utils/gpio.o ../../utils/extint.o
 defines = -DSTM32F10X_MD
-includes = -I../../core-common-lib/CMSIS/Include -I../../core-common-lib/CMSIS/Device/ST/STM32F10x/Include -I../..
+includes = -I../../CMSIS/Include -I../../CMSIS/Device/ST/STM32F10x/Include -I../..
 toolchain = arm-none-eabi-
 cc = $(toolchain)gcc
 debug = -g
