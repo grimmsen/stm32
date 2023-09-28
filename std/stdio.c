@@ -1,3 +1,5 @@
+// Copyright (C) 2023 by grimmsen
+// Licence: GPL
 #include "stdio.h"
 
 void (*_putchar)(char c);

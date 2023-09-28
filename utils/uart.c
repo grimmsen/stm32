@@ -1,3 +1,5 @@
+// Copyright (C) 2023 by grimmsen
+// Licence: GPL
 #include "uart.h"
 
 extern uint8_t clock_speed;

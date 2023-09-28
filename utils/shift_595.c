@@ -1,3 +1,5 @@
+// Copyright (C) 2023 by grimmsen
+// Licence: GPL
 #include "shift_595.h"
 
 GPIO_TypeDef *gpio;

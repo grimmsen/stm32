@@ -1,3 +1,5 @@
+// Copyright (C) 2023 by grimmsen
+// Licence: GPL
 #include "clock.h"
 
 uint8_t clock_speed;
