@@ -11,10 +11,10 @@
 // delay loop for 8 MHz CPU clock with optimizer enabled
 void delay(uint32_t msec)
 {
-    for (uint32_t j=0; j < 1000UL * msec; j++)
-    {
-        __NOP();
-    }
+for (uint32_t j=0; j < 1000UL * msec; j++)
+{
+    __NOP();
+}
 }
 
 void init_TIM1() {

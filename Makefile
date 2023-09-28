@@ -9,6 +9,7 @@ all:
 	make -C utils/
 	make -C std/
 	make -C test/
+	make -C examples/blinky
 	$(cc) -o test.o -nodefaultlibs -nostdlib -c $(defines) $(includes) $(debug) -mcpu=cortex-m3 -mthumb test.c
 	$(cc) -o image.elf -nodefaultlibs -nostdlib -nostartfiles -Wl,-Tlink.ld $(objects)
 	$(toolchain)objcopy -O binary image.elf image.bin
@@ -17,6 +18,7 @@ clean:
 	make clean -C utils/
 	make clean -C std/
 	make clean -C test/
+	make clean -C examples/blinky
 	rm -f *.elf *.bin *.o
 
 download:
