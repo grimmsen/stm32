@@ -171,6 +171,8 @@ int _vprintf(char *format, va_list list) {
         for(int c=0;c<written;c++) {
           _putchar(buf[c]);
         }
+      } else {
+        _putchar(fill_char);
       }
     } else {
       // no format expression, regular data

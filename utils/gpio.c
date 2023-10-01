@@ -3,6 +3,17 @@
 #include "gpio.h"
 
 /**
+ * systick_enable - enables the systick counter
+ *
+ */
+void systick_enable(uint8_t slow) {
+  SysTick->CTRL|=SysTick_CTRL_ENABLE_Msk;
+  if(slow) {
+    SysTick->CTRL|=SysTick_CTRL_CLKSOURCE_Msk;
+  }
+}
+
+/**
  * gpio_init_all - enables all ports on the microcontroller
  *
  */

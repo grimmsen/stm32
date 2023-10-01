@@ -26,6 +26,7 @@
 #define LOW 0
 #define HIGH 1
 
+void systick_enable(uint8_t slow);
 void gpio_init_all();
 void gpio_pin_mode(GPIO_TypeDef *gpio, uint8_t pin, uint8_t mode);
 void gpio_pin_write(GPIO_TypeDef *gpio, uint8_t pin, uint8_t val);
