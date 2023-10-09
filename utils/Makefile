@@ -4,11 +4,10 @@ toolchain = arm-none-eabi-
 cc = $(toolchain)gcc
 debug = -g
 
-all:
-	$(cc) -o timer.o -c $(defines) $(includes) $(debug) -mcpu=cortex-m3 -mthumb timer.c
-	$(cc) -o clock.o -c $(defines) $(includes) $(debug) -mcpu=cortex-m3 -mthumb clock.c
-	$(cc) -o uart.o -c $(defines) $(includes) $(debug) -mcpu=cortex-m3 -mthumb uart.c
-	$(cc) -o gpio.o -c $(defines) $(includes) $(debug) -mcpu=cortex-m3 -mthumb gpio.c
-	$(cc) -o extint.o -c $(defines) $(includes) $(debug) -mcpu=cortex-m3 -mthumb extint.c
+%.o: %.c
+	${cc} -c $< -o $@ $(defines) $(includes) $(debug) -mcpu=cortex-m3 -mthumb
+
+all: timer.o clock.o uart.o gpio.o extint.o iae_handlers.o
+
 clean:
 	rm -f *.o

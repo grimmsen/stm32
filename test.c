@@ -5,6 +5,7 @@
 #include "utils/clock.h"
 #include "utils/gpio.h"
 #include "utils/uart.h"
+#include "utils/iae_handlers.h"
 #include "utils/extint.h"
 #include "peripheral/shift_595.h"
 #include "peripheral/dcf77.h"
@@ -112,6 +113,38 @@ void test() {
 
 int main(void)
 {
+      // Enable the backup domain
+    SET_BIT(RCC->APB1ENR, RCC_APB1ENR_BKPEN + RCC_APB1ENR_PWREN);
+    // Enable write access to the backup domain
+    SET_BIT(PWR->CR, PWR_CR_DBP);
+    // Enable LSE oscillator
+    SET_BIT(RCC->BDCR, RCC_BDCR_LSEON);
+    // Wait until LSE oscillator is ready
+    while(!READ_BIT(RCC->BDCR, RCC_BDCR_LSERDY)) {}
+    // Select LSE as clock source for the RTC
+    MODIFY_REG(RCC->BDCR, RCC_BDCR_RTCSEL, RCC_BDCR_RTCSEL_LSE);
+
+    // Enable the RTC
+    SET_BIT(RCC->BDCR, RCC_BDCR_RTCEN);
+    // Wait until RTC is synchronized
+    while(!READ_BIT(RTC->CRL, RTC_CRL_RSF)) {}
+    // Wait until last write operation is done
+    while(!READ_BIT(RTC->CRL, RTC_CRL_RTOFF)) {}
+    // Enable second interrupt
+    SET_BIT(RTC->CRH,RTC_CRH_SECIE);
+    // Wait until last write operation is done
+    while(!READ_BIT(RTC->CRL, RTC_CRL_RTOFF)) {}
+    // Enter configuration mode
+    SET_BIT(RTC->CRL,RTC_CRL_CNF);
+    // Divide oscillator frequency by 32767+1 to get seconds
+    RTC->PRLL=32767;
+    RTC->PRLH=0;
+    RTC->CNTL=1000;
+    RTC->CNTH=0;
+    // Leave configuration mode
+    CLEAR_BIT(RTC->CRL,RTC_CRL_CNF);
+    // Wait until last write operation is done
+    while(!READ_BIT(RTC->CRL, RTC_CRL_RTOFF)) {}
   //_insync=0;
   //_needssync=1;
   onoff=0;
@@ -134,7 +167,7 @@ int main(void)
     while(1) {
       //test();
       struct dcf77_time mytime = dcf77_get_time();
-      _printf("\r\nlast decoded time = %u:%u:%u\r\n\r\n",mytime.hour,mytime.minute);
+      _printf("\r\nlast decoded time = %u %02u:%02u:%02u dow: %02u day: %02u month: %02u year: %02u\r\n\r\n",RTC->CNTL,mytime.hour,mytime.minute,mytime.day_of_week,mytime.day_of_month,mytime.month,mytime.year);
       // decode time
       //uint8_t mins = ((_bit0_31&0x01f00000)>>21)+((_bit0_31&0x0e000000)>>25)*10;
       //uint8_t hours = ((_bit0_31&0xe0000000)>>29)+((_bit32_58&0x00000001)<<3)+((_bit32_58&0x00000006)>>1)*10;

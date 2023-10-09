@@ -1,16 +1,16 @@
 #ifndef __EXTINT_H__
 #define __EXTINT_H__
 #include <stdint.h>
-#include <stdlib.h>
 #include <stm32f10x.h>
 
+#define NULL 0
 #define EXTI_RISING_EDGE 0
 #define EXTI_FALLING_EDGE 1
 #define EXTI_GPIOA 0
 #define EXTI_GPIOB 1
 #define EXTI_GPIOC 2
 
-void extint_init(uint8_t gpio, uint8_t num, uint8_t pin, uint8_t edge);
+void extint_init(uint8_t gpio, uint8_t num, uint8_t pin);
 void extint_add_edge(uint8_t num, uint8_t edge);
 void extint_clear_interrupt(uint8_t num);
 void extint_ext0_set_handler(void *handler);

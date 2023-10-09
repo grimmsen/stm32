@@ -9,12 +9,7 @@ SECTIONS
     .text : {
         /* Set the initial address to 0 */
         . = 0;
-        LONG(ORIGIN(RAM)+LENGTH(RAM));
-        LONG(main | 1);
-        . = 0x058;
-        LONG(__extint_ext0_handler | 1);
-        . = 0x0b0;
-        LONG(0 | 1);
+        INCLUDE ld_vectors.ld
         /* The whole interrupt table is 332 bytes long. Advance to that position. */
         . = 332;
         /* And here comes the rest of the code */

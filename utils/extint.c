@@ -4,13 +4,7 @@
 #include "gpio.h"
 #include "../std/stdio.h"
 
-void (*__ext0_call)();
-void (*__ext1_call)();
-void (*__ext2_call)();
-void (*__ext3_call)();
-void (*__ext4_call)();
-
-void extint_init(uint8_t gpio, uint8_t num, uint8_t pin, uint8_t edge) {
+void extint_init(uint8_t gpio, uint8_t num, uint8_t pin) {
   // enable pin for input
   switch(gpio) {
     case EXTI_GPIOA:
@@ -37,27 +31,22 @@ void extint_init(uint8_t gpio, uint8_t num, uint8_t pin, uint8_t edge) {
     case 0:
       NVIC_SetPriority(EXTI0_IRQn,0);
       NVIC_EnableIRQ(EXTI0_IRQn);
-      __ext0_call = NULL;
       break;
     case 1:
       NVIC_SetPriority(EXTI1_IRQn,0);
       NVIC_EnableIRQ(EXTI1_IRQn);
-      __ext1_call = NULL;
       break;
     case 2:
       NVIC_SetPriority(EXTI2_IRQn,0);
       NVIC_EnableIRQ(EXTI2_IRQn);
-      __ext2_call = NULL;
       break;
     case 3:
       NVIC_SetPriority(EXTI3_IRQn,0);
       NVIC_EnableIRQ(EXTI3_IRQn);
-      __ext3_call = NULL;
       break;
     case 4:
       NVIC_SetPriority(EXTI4_IRQn,0);
       NVIC_EnableIRQ(EXTI4_IRQn);
-      __ext4_call = NULL;
       break;
     default:
       break;
@@ -97,52 +86,3 @@ void extint_clear_interrupt(uint8_t num) {
   return;
 }
 
-void extint_ext0_set_handler(void *handler) {
-  __ext0_call = handler;
-  return;
-}
-
-void __extint_ext0_handler() {
-  if(__ext0_call!=NULL) __ext0_call();
-  return;
-}
-
-void extint_ext1_set_handler(void *handler) {
-  __ext1_call = handler;
-  return;
-}
-
-void __extint_ext1_handler() {
-  if(__ext1_call!=NULL) __ext2_call();
-  return;
-}
-
-void extint_ext2_set_handler(void *handler) {
-  __ext2_call = handler;
-  return;
-}
-
-void __extint_ext2_handler() {
-  if(__ext2_call!=NULL) __ext2_call();
-  return;
-}
-
-void extint_ext3_set_handler(void *handler) {
-  __ext3_call = handler;
-  return;
-}
-
-void __extint_ext3_handler() {
-  if(__ext3_call!=NULL) __ext3_call();
-  return;
-}
-
-void extint_ext4_set_handler(void *handler) {
-  __ext4_call = handler;
-  return;
-}
-
-void __extint_ext4_handler() {
-  if(__ext3_call!=NULL) __ext4_call();
-  return;
-}

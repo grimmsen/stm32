@@ -11,6 +11,9 @@ if [ -d projects/$1 ]; then
 fi
 
 mkdir -p projects/$1
+cd projects/$1
+ln -s ../../ld_vectors.ld .
+cd -
 
 echo H4sIAAAAAAAAA31RsW6DMBSc66+wlAwhqiFtlqpSpkaVMkQdiNRulXkY8ppnOwLTkr/vA5omZShCcL4zd9yzzz4MhFqu5GQycdoafsVexnHCdxOQ6gTIw2HElUf0I8q0AV2IvchNgc50lmqd7rbL++e7xdv7di3QATX5oGyGT5+26SZNNoMwYtfmE8Ek6S45u7TjnSJ4T7DX6NhTV1Y574wyOkMlAJibzn53RCUA/1vWlF1+KYQmehQ30xlAJJX/25+NuIZuKBBmdbesQ85QKmDPn4YRw3OnqKfZnL0sHJsV+CqYVtklr8O+sdl1AFzlotWliQ0V/4R2SFehQOLpqVe6VbthUoTuEFPO4X44yKhzvnRmFvzxJNWLzNDp6nQVNyCmhQAy2vEwKitVIee9PO8kfnohCtL1nuU6qB7KrwqDuRjIRfuw6C8hvgGvutHZUQIAAA== | base64 -d | gzip -d | sed -s "s/###name###/$1/g" > projects/$1/Makefile
 

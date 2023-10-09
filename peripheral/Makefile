@@ -4,8 +4,9 @@ toolchain = arm-none-eabi-
 cc = $(toolchain)gcc
 debug = -g
 
-all:
-	$(cc) -o shift_595.o -c $(defines) $(includes) $(debug) -mcpu=cortex-m3 -mthumb shift_595.c
-	$(cc) -o dcf77.o -c $(defines) $(includes) $(debug) -mcpu=cortex-m3 -mthumb dcf77.c
+%.o: %.c
+	${cc} -c $< -o $@ $(defines) $(includes) $(debug) -mcpu=cortex-m3 -mthumb
+
+all: shift_595.o dcf77.o
 clean:
 	rm -f *.o

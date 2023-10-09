@@ -1,8 +1,6 @@
 #ifndef __STDIO_H__
 #define __STDIO_H__
-#include <stdlib.h>
 #include <stdint.h>
-#include <stdio.h>
 #include <stdarg.h>
 
 void _sputc(char c);

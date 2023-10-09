@@ -172,7 +172,10 @@ int _vprintf(char *format, va_list list) {
           _putchar(buf[c]);
         }
       } else {
-        _putchar(fill_char);
+        if(fill_count==0) _putchar(fill_char);
+        for(unsigned int c=0;c<(fill_count);c++) {
+          _putchar(fill_char);
+        }
       }
     } else {
       // no format expression, regular data
