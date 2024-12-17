@@ -34,9 +34,9 @@ Once the toolchain is installed, you're good to go.
 Check the tools folder and if you have to create the dbus rules in order
 to get the ST-Link programmer recognized by the usb subsystem.
 On Ubuntu/Debian or Systemd based systems in general, a non working
-ST-Link programmer could be brought to live by typing:
+ST-Link programmer could be brought to life by typing:
 
-    sudo tools/dbus-rules.sh
+    tools/dbus-rules.sh
 
 ### Build and flash the blinky
 
@@ -57,4 +57,17 @@ If everything is fine, the onboard led should blink.
 
 ## Documentation
 
-to be done...
+To create a new project, type
+
+    bin/createproject.sh mynewproject
+
+A compilable and flashable blinky program is created in the projects folder. 
+
+You can build and upload it by typing
+
+    make -C projects/mynewproject flash
+
+Put your code in the project folder, with the mynewproject.c file in this example
+being your entry point, containing the main function. 
+
+to be continued ...
