@@ -14,7 +14,7 @@ But: It's advantage to the Arduino IDE is, that you can actually organize your
 project the way you are used to, despite being forced to that single sketch.
 When compared to CubeIDE, it keeps the HAL as low as possible. No code generators
 nor pinplanners.
-This boilerplate tries keeps you as close as possible to the hardware, while
+This boilerplate tries to keep you as close as possible to the hardware, while
 providing conveniant but low leveled wrappers to the registers. It provides a
 complete interface to ARMs vector table, which you can easily connect to an
 abitrary C function.
@@ -30,6 +30,13 @@ this is done via
     apt-get install stlink-tools binutils-arm-none-eabi gcc-arm-none-eabi
 
 Once the toolchain is installed, you're good to go.
+
+Check the tools folder and if you have to create the dbus rules in order
+to get the ST-Link programmer recognized by the usb subsystem.
+On Ubuntu/Debian or Systemd based systems in general, a non working
+ST-Link programmer could be brought to live by typing:
+
+   sudo tools/dbus-rules.sh
 
 ### Build and flash the blinky
 
@@ -50,6 +57,4 @@ If everything is fine, the onboard led should blink.
 
 ## Documentation
 
-to be done
-Install stlink
-dbus rules
+to be done...
