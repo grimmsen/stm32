@@ -1,4 +1,15 @@
-#include "time.h"
+#include <stdio.h>
+#include <stdint.h>
+
+struct _time {
+  uint32_t hour;
+  uint32_t minute;
+  uint32_t second;
+  uint32_t day_of_year;
+  uint32_t day_of_month;
+  uint32_t month;
+  uint32_t year;
+};
 
 unsigned int mktime(unsigned int tm_sec,unsigned int tm_min, unsigned int tm_hour, unsigned int tm_yday, unsigned int tm_year) {
   uint32_t time;
@@ -97,4 +108,26 @@ struct _time mkdate(uint32_t timestamp) {
 }
 
 
+struct dcf77_time {
+  uint8_t hour;
+  uint8_t minute;
+  uint8_t seconds;
+  uint8_t day_of_month;
+  uint8_t day_of_week;
+  uint8_t month;
+  uint8_t year;
+};
 
+void main() {
+  uint32_t _bit32_58= 0xFC8E0494;  
+  struct dcf77_time x;
+  x.day_of_month = (uint8_t)((_bit32_58&0x000000f0)>>4)+(((_bit32_58&0x00000300)>>8)*10); // X
+  x.day_of_week = (uint8_t)((_bit32_58&0x00001c00)>>10);
+  x.month = (uint8_t)((_bit32_58&0x0001e000)>>13)+(((_bit32_58&0x00020000)>>17)*10);
+  x.year = (uint8_t)((_bit32_58&0x003c0000)>>18)+(((_bit32_58&0x03c00000)>>22)*10); // X
+  printf("%u %u %u %u\n",x.day_of_month,x.day_of_week,x.month,x.year);
+  printf("%u\n\r",day_of_year(10,10,23));
+  printf("unix time: %u\n\r",mktime(0,0,0,day_of_year(20,3,2000),2000));
+  struct _time test = mkdate(1696944498);
+  printf("year: %u.%u.%u, dayofyear %u %u:%u:%u\r\n",test.day_of_month,test.month,test.year,test.day_of_year,test.hour,test.minute,test.second);
+}

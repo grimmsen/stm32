@@ -130,13 +130,13 @@ void dcf77_handler() {
       // we are not in sync
       _insync=0;
     }
+    _printf("%u %u %x %x %u\r\n",_insync,_bit_count,_bit0_31,_bit32_58,_d_dur);
   }
   extint_clear_interrupt(dcf77_interrupt);
   return;
 }
 
-struct dcf77_time dcf77_get_time() {
-  struct dcf77_time time = {
+uint32_t dcf77_get_time() {
     /**
      * data is encoded in BCD at very inconvenient places
      * mask bits and shift them to the right place
@@ -168,13 +168,13 @@ struct dcf77_time dcf77_get_time() {
      *        || ||LL_LL______________________ year BCD 1
      *        LL_LL___________________________ year BCD 10
      */
-    (uint8_t)((_bit0_31&0xe0000000)>>29)+((_bit32_58&0x00000001)<<3)+((_bit32_58&0x00000006)>>1)*10, // hour
-    (uint8_t)((_bit0_31&0x01f00000)>>21)+((_bit0_31&0x0e000000)>>25)*10,                             // minute
-    0,                                                                           // second
-    (uint8_t)((_bit32_58&0x000000f0)>>4)+(((_bit32_58&0x00000300)>>8)*10),                           // day of month
-    (uint8_t)((_bit32_58&0x00001c00)>>11),                                                           // day of week
-    (uint8_t)((_bit32_58&0x0001e000)>>13)+(((_bit32_58&0x0002000)>>17)*10),                          // month
-    (uint8_t)((_bit32_58&0x003c0000)>>18)+(((_bit32_58&0x03c00000)>>22)*10)                          // year
-  };
-  return time;
+  uint32_t hour = (uint8_t)((_bit0_31&0xe0000000)>>29)+((_bit32_58&0x00000001)<<3)+((_bit32_58&0x00000006)>>1)*10; // hour
+  uint32_t minute = (uint8_t)((_bit0_31&0x01f00000)>>21)+((_bit0_31&0x0e000000)>>25)*10;                             // minute
+  uint32_t second = 0;                                                                           // second
+  uint32_t day_of_month = (uint8_t)((_bit32_58&0x000000f0)>>4)+(((_bit32_58&0x00000300)>>8)*10);                        // day of month
+  uint32_t day_of_week = (uint8_t)((_bit32_58&0x00001c00)>>10);                                                           // day of week
+  uint32_t month = (uint8_t)((_bit32_58&0x0001e000)>>13)+(((_bit32_58&0x00020000)>>17)*10);                          // month
+  uint32_t year = 2000 + (uint8_t)((_bit32_58&0x003c0000)>>18)+(((_bit32_58&0x03c00000)>>22)*10);                          // year
+  _printf("\r\nhour: %u minute: %u day_of_month: %u, day_of_week: %u, month: %u, year: %u",hour,minute,day_of_month,day_of_week,month,year);
+  return mktime(second,minute,hour,day_of_year(day_of_month,month,year),year);
 }

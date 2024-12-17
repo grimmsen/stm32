@@ -166,8 +166,8 @@ int main(void)
  //   extint_ext0_set_handler(&handleEXT0);
     while(1) {
       //test();
-      struct dcf77_time mytime = dcf77_get_time();
-      _printf("\r\nlast decoded time = %u %02u:%02u:%02u dow: %02u day: %02u month: %02u year: %02u\r\n\r\n",RTC->CNTL,mytime.hour,mytime.minute,mytime.day_of_week,mytime.day_of_month,mytime.month,mytime.year);
+      _printf("\r\nlast decoded time = %u\r\n",dcf77_get_time());
+
       // decode time
       //uint8_t mins = ((_bit0_31&0x01f00000)>>21)+((_bit0_31&0x0e000000)>>25)*10;
       //uint8_t hours = ((_bit0_31&0xe0000000)>>29)+((_bit32_58&0x00000001)<<3)+((_bit32_58&0x00000006)>>1)*10;

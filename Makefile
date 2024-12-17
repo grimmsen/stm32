@@ -7,6 +7,7 @@ debug = -g
 
 %.o: %.c
 	${cc} -c $< -o $@ $(defines) $(includes) $(debug) -mcpu=cortex-m3 -mthumb
+	${cc} -O0 -Wall -S $< $(defines) $(includes) -mcpu=cortex-m3 -mthumb
 
 all: test.o
 	make -C utils/

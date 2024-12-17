@@ -5,6 +5,21 @@ This is a simple boilerplate, which can be used as a template for a new STM32F10
 project. It contains a bunch of functions to deal with the billions of registers
 of this microcontroller. Also a library for basic standard tasks (like printf)
 and interfaces for common peripherals is part of this boiler plate.
+The projects goal is to provide a as-vanilla-as-possible way to develop for
+the STM32 bluepill. No Arduino IDE or CubeIDE. All you need is an editor of
+your choice, STs flash tools and GCC. The STM32 platform is actually pretty
+complex and this boiler plate is far from production ready and wouldn't be 
+at a 100%, when the platform will be obsolete.
+But: It's advantage to the Arduino IDE is, that you can actually organize your
+project the way you are used to, despite being forced to that single sketch.
+When compared to CubeIDE, it keeps the HAL as low as possible. No code generators
+nor pinplanners.
+This boilerplate tries keeps you as close as possible to the hardware, while
+providing conveniant but low leveled wrappers to the registers. It provides a
+complete interface to ARMs vector table, which you can easily connect to an
+abitrary C function.
+Common libc functions like printf or putc have been reprogrammed, since libc isn't
+availabe.
 
 ## Getting started
 ### Install the toolchain
@@ -36,3 +51,5 @@ If everything is fine, the onboard led should blink.
 ## Documentation
 
 to be done
+Install stlink
+dbus rules
