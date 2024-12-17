@@ -36,7 +36,7 @@ to get the ST-Link programmer recognized by the usb subsystem.
 On Ubuntu/Debian or Systemd based systems in general, a non working
 ST-Link programmer could be brought to live by typing:
 
-   sudo tools/dbus-rules.sh
+    sudo tools/dbus-rules.sh
 
 ### Build and flash the blinky
 
